@@ -1,0 +1,12 @@
+[Unit]
+Description=Fan MQTT
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=/
+ExecStart=python3 /home/pi/fan_mqtt.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
