@@ -1,0 +1,21 @@
+
+  ######################################
+  ## Fan Speed
+  ## calculate fan speed value based on the status of the fan shellies
+  ######################################
+
+  sensor:
+
+    - name: "Fan Speed"
+      icon: mdi:fan
+      state: >
+          {% if is_state('switch.fan_speed_1', 'on') and is_state('switch.fan_speed_3', 'on') %}
+            3
+          {% elif is_state('switch.fan_speed_1', 'on') and is_state('switch.fan_speed_2', 'on') %}
+            2
+          {% elif is_state('switch.fan_speed_1', 'on') %}
+            1
+          {% else %}
+            0
+          {% endif %}
+

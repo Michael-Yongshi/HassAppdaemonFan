@@ -1,0 +1,72 @@
+
+fan_speed_0:
+  alias: Set Fan Speed 0
+  sequence:
+    - type: turn_off
+      device_id: 45f011d554132653eb0b3e77d3cc6003
+      entity_id: switch.fan_speed_1
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_2
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_3
+      domain: switch
+  mode: single
+  icon: mdi:fan-off
+
+fan_speed_1:
+  alias: Set Fan Speed 1
+  sequence:
+    - type: turn_on
+      device_id: 45f011d554132653eb0b3e77d3cc6003
+      entity_id: switch.fan_speed_1
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_2
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_3
+      domain: switch
+  mode: single
+  icon: mdi:fan-speed-1
+
+fan_speed_2:
+  alias: Set Fan Speed 2
+  sequence:
+    - type: turn_on
+      device_id: 45f011d554132653eb0b3e77d3cc6003
+      entity_id: switch.fan_speed_1
+      domain: switch
+    - type: turn_on
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_2
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_3
+      domain: switch
+  mode: single
+  icon: mdi:fan-speed-2
+
+fan_speed_3:
+  alias: Set Fan Speed 3
+  sequence:
+    - type: turn_on
+      device_id: 45f011d554132653eb0b3e77d3cc6003
+      entity_id: switch.fan_speed_1
+      domain: switch
+    - type: turn_off
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_2
+      domain: switch
+    - type: turn_on
+      device_id: 7b4e771b65ffceee75191d0a5c9da71d
+      entity_id: switch.fan_speed_3
+      domain: switch
+  mode: single
+  icon: mdi:fan-speed-3
