@@ -1,0 +1,176 @@
+#################################################################
+## Capture Button click events
+## In case http requests from shelly buttons fail but HASS did pick up the click event
+#################################################################
+
+## Bathroom button
+- id: 'g6m784wco0hcjaw68rmc'
+  alias: Fan Button Bathroom Single click
+  trigger:
+    - platform: device
+      device_id: 2c3fd5741bf15b6cbeff88d641bd4b52
+      domain: shelly
+      type: single
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_1
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "1"
+    - service: notify.telegram_log
+      data:
+        message: Bathroom button single clicked.
+  mode: single
+
+- id: 'jjtvlq9cv2rx44cvgwtp'
+  alias: Fan Button Bathroom Double click
+  trigger:
+    - platform: device
+      device_id: 2c3fd5741bf15b6cbeff88d641bd4b52
+      domain: shelly
+      type: double
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_2
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "2"
+    - service: notify.telegram_log
+      data:
+        message: Bathroom button double clicked.
+  mode: single
+
+- id: 'o1bvn9qrdt1ykv0y5ymu'
+  alias: Fan Button Bathroom Triple click
+  trigger:
+    - platform: device
+      device_id: 2c3fd5741bf15b6cbeff88d641bd4b52
+      domain: shelly
+      type: triple
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_3
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "3"
+    - service: notify.telegram_log
+      data:
+        message: Bathroom button triple clicked.
+  mode: single
+
+- id: '9p4u8fktgvgnvz2c844v'
+  alias: Fan Button Bathroom Long click
+  trigger:
+    - platform: device
+      device_id: 2c3fd5741bf15b6cbeff88d641bd4b52
+      domain: shelly
+      type: long
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_0
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "0"
+    - service: notify.telegram_log
+      data:
+        message: Bathroom button long clicked.
+
+  mode: single
+
+## Toilet button
+
+- id: 'd405c20dqwbi7rqi2vhh'
+  alias: Fan Button Toilet Single click
+  trigger:
+    - platform: device
+      device_id: 94129dca4c20ace202b035775122d1b6
+      domain: shelly
+      type: single
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_1
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "1"
+    - service: notify.telegram_log
+      data:
+        message: Toilet button single clicked.
+  mode: single
+
+- id: '17euijpowwzhxdwysh3w'
+  alias: Fan Button Toilet Double click
+  trigger:
+    - platform: device
+      device_id: 94129dca4c20ace202b035775122d1b6
+      domain: shelly
+      type: double
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_2
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "2"
+    - service: notify.telegram_log
+      data:
+        message: Toilet button double clicked.
+  mode: single
+
+- id: 'xrzqzmyl6nn8rnuhtzhz'
+  alias: Fan Button Toilet Triple click
+  trigger:
+    - platform: device
+      device_id: 94129dca4c20ace202b035775122d1b6
+      domain: shelly
+      type: triple
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_3
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "3"
+    - service: notify.telegram_log
+      data:
+        message: Toilet button triple clicked.
+  mode: single
+
+- id: '0w34azog0rxaiuxlis3k'
+  alias: Fan Button Toilet Long click
+  trigger:
+    - platform: device
+      device_id: 94129dca4c20ace202b035775122d1b6
+      domain: shelly
+      type: long
+      subtype: button
+  condition: []
+  action:
+    - service: script.fan_speed_0
+      data: {}
+    - service: mqtt.publish
+      data:
+        topic: fan/override/without
+        payload: "0"
+    - service: notify.telegram_log
+      data:
+        message: Toilet button long clicked.
+  mode: single

@@ -17,6 +17,3 @@
 
     - name: mqtt_fan_override_timeleft
       state_topic: 'fan/override/timeleft'
-
-    - name: mqtt_heater_status
-      state_topic: 'heater/status'

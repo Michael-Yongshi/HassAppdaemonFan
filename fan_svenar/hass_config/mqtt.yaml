@@ -1,0 +1,19 @@
+
+  #################################################################
+  ## MQTT Fan
+  #################################################################
+
+  # To watch for MQTT topics so appdaemon can pick it up (subscribe doesnt work there)
+  sensor:
+
+    - name: mqtt_fan_override_with
+      state_topic: 'fan/override/with'
+
+    - name: mqtt_fan_override_without
+      state_topic: 'fan/override/without'
+
+    - name: mqtt_fan_override_status
+      state_topic: 'fan/override/status'
+
+    - name: mqtt_fan_override_timeleft
+      state_topic: 'fan/override/timeleft'

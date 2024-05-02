@@ -1,0 +1,17 @@
+watch_fan_svenar:
+  module: watch_fan_svenar
+  class: WatchFan
+  comfoair: climate.comfoair
+  sensor_override_with: sensor.mqtt_fan_override_with
+  sensor_override_without: sensor.mqtt_fan_override_without
+  topic_override_with: fan/override/with
+  topic_override_without: fan/override/without
+  topic_override_status: fan/override/status
+  topic_override_time: fan/override/timeleft
+  toggle: input_boolean.fan_programming
+  interval: input_number.fan_default_override
+  timeslots:
+    - night
+    - morning
+    - afternoon
+    - evening

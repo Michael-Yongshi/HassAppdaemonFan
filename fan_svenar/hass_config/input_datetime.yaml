@@ -1,0 +1,28 @@
+
+#################################################################
+## Ventilation programming
+#################################################################
+
+  fan_timeslot_morning:
+    name: Fan Timeslot End Morning
+    icon: mdi:timer
+    has_date: false
+    has_time: true
+
+  fan_timeslot_afternoon:
+    name: Fan Timeslot End Afternoon
+    icon: mdi:timer
+    has_date: false
+    has_time: true
+
+  fan_timeslot_evening:
+    name: Fan Timeslot End Evening
+    icon: mdi:timer
+    has_date: false
+    has_time: true
+
+  fan_timeslot_night:
+    name: Fan Timeslot End Night
+    icon: mdi:timer
+    has_date: false
+    has_time: true

@@ -1,0 +1,612 @@
+title: Serenity
+views:
+  - theme: Backend-selected
+    title: Ventilation
+    path: ventilation
+    subview: true
+    badges: []
+    cards:
+      - type: picture-elements
+        image: local/blank_narrow.png
+        elements:
+          - type: conditional
+            conditions:
+              - entity: sensor.fan_speed
+                state: '1'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-1
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.fan_speed
+                state: '2'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-2
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.fan_speed
+                state: '3'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-3
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.fan_speed
+                state: '0'
+            elements:
+              - type: icon
+                icon: mdi:fan-off
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: icon
+            title: Fan 0
+            icon: mdi:fan-off
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              target: {}
+              data:
+                topic: fan/override/with
+                payload: '0'
+                qos: '2'
+            style:
+              top: 80%
+              left: 7%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 1
+            icon: mdi:fan-speed-1
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              target: {}
+              data:
+                topic: fan/override/with
+                payload: '1'
+                qos: '2'
+            style:
+              top: 80%
+              left: 20%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 2
+            icon: mdi:fan-speed-2
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              target: {}
+              data:
+                topic: fan/override/with
+                payload: '2'
+                qos: '2'
+            style:
+              top: 80%
+              left: 33%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 3
+            icon: mdi:fan-speed-3
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              target: {}
+              data:
+                topic: fan/override/with
+                payload: '3'
+                qos: '2'
+            style:
+              top: 80%
+              left: 46%
+              color: lightgray
+              transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Automatic programming
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:cog
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: orange
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: lightgray
+                  transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Persistent Override
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:cog
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: lightgrey
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: orange
+                  transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Temporary Override
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:clock
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: orange
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: lightgrey
+                  transform: scale(2,2)
+              - type: state-label
+                entity: sensor.mqtt_fan_override_timeleft
+                tap_action: none
+                style:
+                  top: 55%
+                  left: 75%
+                  color: lightgrey
+                  transform: scale(2,2)
+      - type: entities
+        entities:
+          - entity: climate.comfoair
+      - type: picture-elements
+        title: New - work in progress...
+        image: local/blank_narrow.png
+        elements:
+          - type: conditional
+            conditions:
+              - entity: sensor.comfoair_ventilation_level
+                state: '1'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-1
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.comfoair_ventilation_level
+                state: '2'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-2
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.comfoair_ventilation_level
+                state: '3'
+            elements:
+              - type: icon
+                icon: mdi:fan-speed-3
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: conditional
+            conditions:
+              - entity: sensor.comfoair_ventilation_level
+                state: '0'
+            elements:
+              - type: icon
+                icon: mdi:fan-off
+                style:
+                  top: 30%
+                  left: 30%
+                  color: orange
+                  transform: scale(6,6)
+          - type: icon
+            title: Fan 0
+            icon: mdi:fan-off
+            tap_action:
+              action: call-service
+              service: climate.set_fan_mode
+              metadata: {}
+              data:
+                fan_mode: 'off'
+              target:
+                device_id: 70454b8c0c001fb55422bc2668c93c0b
+            style:
+              top: 80%
+              left: 7%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 1
+            icon: mdi:fan-speed-1
+            tap_action:
+              action: call-service
+              service: climate.set_fan_mode
+              metadata: {}
+              data:
+                fan_mode: low
+              target:
+                device_id: 70454b8c0c001fb55422bc2668c93c0b
+            style:
+              top: 80%
+              left: 20%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 2
+            icon: mdi:fan-speed-2
+            tap_action:
+              action: call-service
+              service: climate.set_fan_mode
+              metadata: {}
+              data:
+                fan_mode: medium
+              target:
+                device_id: 70454b8c0c001fb55422bc2668c93c0b
+            style:
+              top: 80%
+              left: 33%
+              color: lightgray
+              transform: scale(2,2)
+          - type: icon
+            title: Fan 3
+            icon: mdi:fan-speed-3
+            tap_action:
+              action: call-service
+              service: climate.set_fan_mode
+              metadata: {}
+              data:
+                fan_mode: high
+              target:
+                device_id: 70454b8c0c001fb55422bc2668c93c0b
+            style:
+              top: 80%
+              left: 46%
+              color: lightgray
+              transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Automatic programming
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:cog
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: orange
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: lightgray
+                  transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Persistent Override
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:cog
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: lightgrey
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: orange
+                  transform: scale(2,2)
+          - type: conditional
+            conditions:
+              - entity: sensor.mqtt_fan_override_status
+                state: Temporary Override
+            elements:
+              - type: icon
+                title: Fan Auto
+                icon: hass:clock
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: fan/override/with
+                    payload: '9'
+                    qos: '2'
+                  target: {}
+                style:
+                  top: 80%
+                  left: 75%
+                  color: orange
+                  transform: scale(2,2)
+              - type: icon
+                title: Fan Lock
+                icon: mdi:hand-back-left
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  target: {}
+                  data:
+                    topic: fan/override/with
+                    payload: '8'
+                    qos: '2'
+                style:
+                  top: 80%
+                  left: 90%
+                  color: lightgrey
+                  transform: scale(2,2)
+              - type: state-label
+                entity: sensor.mqtt_fan_override_timeleft
+                tap_action: none
+                style:
+                  top: 55%
+                  left: 75%
+                  color: lightgrey
+                  transform: scale(2,2)
+      - type: picture-elements
+        image: local/fan/flows_only_bezels_mirrored.png
+        elements:
+          - type: state-badge
+            entity: sensor.comfoair_intake_fan_rpm
+            style:
+              top: 0%
+              left: 75%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_outside_temperature
+            style:
+              top: 0%
+              left: 85%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_exhaust_fan_rpm
+            style:
+              top: 60%
+              left: 75%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_exhaust_temperature
+            style:
+              top: 60%
+              left: 85%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_supply_level
+            style:
+              top: 60%
+              left: 10%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_supply_temperature
+            style:
+              top: 60%
+              left: 20%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_return_level
+            style:
+              top: 0%
+              left: 10%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_return_temperature
+            style:
+              top: 0%
+              left: 20%
+              color: yellow
+              '--label-badge-red': orange
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_ventilation_level
+            style:
+              top: 75%
+              left: 0%
+              color: transparent
+              '--label-badge-text-color': black
+              '--label-badge-red': lightblue
+              '--label-badge-background-color': white
+              transform: scale(0.5)
+          - type: state-badge
+            entity: binary_sensor.comfoair_bypass_open
+            style:
+              top: 60%
+              left: 40%
+              color: yellow
+              '--label-badge-red': lightblue
+              transform: scale(0.5)
+          - type: state-badge
+            entity: sensor.comfoair_filter_status
+            style:
+              top: 60%
+              left: 50%
+              color: yellow
+              '--label-badge-red': lightblue
+              transform: scale(0.5)
+          - type: state-badge
+            entity: binary_sensor.comfoair_supply_fan_active
+            style:
+              top: 10%
+              left: 60%
+              color: yellow
+              '--label-badge-red': lightblue
+              transform: scale(0.5)
+      - show_name: true
+        show_icon: true
+        type: button
+        tap_action:
+          action: navigate
+          navigation_path: /dashboard-config/ventilation
+        icon: mdi:cog
+        name: Ventilation Configuration
+        hold_action:
+          action: none
+        icon_height: 50px
+      - type: entities
+        entities:
+          - entity: binary_sensor.comfoair_supply_fan_active
+          - entity: sensor.comfoair_supply_air_level
+          - entity: sensor.comfoair_supply_level
+          - entity: sensor.comfoair_supply_temperature
+          - entity: sensor.comfoair_return_air_level
+          - entity: sensor.comfoair_return_level
+          - entity: sensor.comfoair_return_temperature
+          - entity: sensor.comfoair_intake_fan_rpm
+          - entity: sensor.comfoair_outside_temperature
+          - entity: sensor.comfoair_exhaust_fan_rpm
+          - entity: sensor.comfoair_exhaust_temperature
+          - entity: binary_sensor.comfoair_bypass_open
+          - entity: sensor.comfoair_bypass_open_hours
+          - entity: sensor.comfoair_bypass_correction
+          - entity: sensor.comfoair_bypass_factor
+          - entity: sensor.comfoair_type
+          - entity: sensor.comfoair_size
+        title: Comfoair

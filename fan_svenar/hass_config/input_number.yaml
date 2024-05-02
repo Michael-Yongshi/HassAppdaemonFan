@@ -1,0 +1,46 @@
+
+  #########
+  # Fan
+  #########
+
+  fan_speed_current:
+    name: Fan Speed Current
+    min: 0
+    max: 3
+    step: 1
+    icon: mdi:fan
+
+  fan_speed_morning:
+    name: Fan Speed Morning
+    min: 0
+    max: 3
+    step: 1
+    icon: mdi:fast-forward
+
+  fan_speed_afternoon:
+    name: Fan Speed Afternoon
+    min: 0
+    max: 3
+    step: 1
+    icon: mdi:fast-forward
+
+  fan_speed_evening:
+    name: Fan Speed Evening
+    min: 0
+    max: 3
+    step: 1
+    icon: mdi:fast-forward
+
+  fan_speed_night:
+    name: Fan Speed Night
+    min: 0
+    max: 3
+    step: 1
+    icon: mdi:fast-forward
+
+  fan_default_override:
+    name: Fan Default Override
+    min: 5
+    max: 120
+    step: 5
+    icon: mdi:timer
