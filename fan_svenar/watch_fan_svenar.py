@@ -7,61 +7,17 @@ import mqttapi as mqtt
 
 class WatchFan(mqtt.Mqtt, hass.Hass):
     """
-    Assumes Fan is controlled by shelly buttons directly to work without home assistant
-    This can switch the fan on (in our example a shelly 1 does this)
-    and set the speed (in our example a shelly 2,5 controls the speed by setting its relays accordingly)
+    Assumes Fan is controlled by Svenars ESPHome
+    This can read massive amounts of data of the comfoair / whr930, in addition to being able to set some settings, e.g. fan mode and speeds.
     
-    Assumes automation in home assistant to convert a button press in an mqtt topic update
-    This can be set by going to Devices, Shelly, Shelly button, automations, select click event in dropdown.
-    Or add directly to yaml like below (fetch the device id from above method and selecting yaml in hamburger menu)
-        - id: d3cb3d38464c49769f01481e5bda9bs
-        alias: Fan Button Bathroom Single click
-        trigger:
-            platform: device
-            device_id: 2c3fd5741bf15b6cbeff88d641bd4b52
-            domain: shelly
-            type: single
-            subtype: button
-        condition: []
-        action:
-            - service: mqtt.publish
-            data:
-                topic: fan/override/set
-                payload: "1"
-        mode: single
-
-    For now this removes the need for the rpi to send proactively received overrides to home assistant via the fan/override/set topic 
-    (as the button is now used to do this within HA itself and we just request speed using the get speed of flask)
-
-    simple linking shelly button directly to plus 1
-    https://www.iot-basics.net/post/building-with-shelly-buttons
-
-    Channel 1
-    http://192.168.178.139/relay/0?turn=on
-    http://192.168.178.139/relay/0?turn=off
-
-    Channel 2
-    http://192.168.178.140/relay/1?turn=on
-    http://192.168.178.140/relay/1?turn=off
-
-    Channel 3
-    http://192.168.178.140/relay/0?turn=on
-    http://192.168.178.140/relay/0?turn=off
-
-    more elaborate commands including roller 2.5
-    https://www.reddit.com/r/ShellyUSA/comments/r51h5e/how_do_you_link_the_shelly_button1_to_other/
-
-    shelly.click event.
-
+    Assumes automation in home assistant to convert a climate service call in an mqtt topic update
     """
 
     # Next, we will define our initialize function, which is how AppDaemon starts our app. 
     def initialize(self):
 
-        # Fan Fan Entities
-        self.fan_channel_1 = self.args["fan_channel_1"]
-        self.fan_channel_2 = self.args["fan_channel_2"]
-        self.fan_channel_3 = self.args["fan_channel_3"]
+        # Fan climate Entity
+        self.climate_entity = self.args["comfoair"]
 
         ###### User program
 
@@ -139,7 +95,7 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
         """
 
         status_new = int(new)
-        
+
         current_time = datetime.datetime.now()
 
         # disregard a reset of the override command topic to value 99
@@ -373,8 +329,6 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
 
         # get hass sensor data
 
-        fan_speed_1 = self.get_state(self.fan_channel_1)
-        fan_speed_2 = self.get_state(self.fan_channel_2)
         fan_speed_3 = self.get_state(self.fan_channel_3)
 
         try:
@@ -404,25 +358,10 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
 
     def post_fan_speed(self, speed):
 
-        if speed == 1:
-            self.turn_on(self.fan_channel_1)
-            self.turn_off(self.fan_channel_2)
-            self.turn_off(self.fan_channel_3)
+        fan_dict = {'0':'off', '1':'low', '2':"medium", '3':"high"}
+        fan_speed = fan_dict[str(speed)]
 
-        elif speed == 2:
-            self.turn_on(self.fan_channel_1)
-            self.turn_on(self.fan_channel_2)
-            self.turn_off(self.fan_channel_3)
-
-        elif speed == 3:
-            self.turn_on(self.fan_channel_1)
-            self.turn_off(self.fan_channel_2)
-            self.turn_on(self.fan_channel_3)
-
-        elif speed == 0:
-            self.turn_off(self.fan_channel_1)
-            self.turn_off(self.fan_channel_2)
-            self.turn_off(self.fan_channel_3)
+        self.call_service("climate/set_fan_mode", entity_id = self.climate_entity, fan_mode = fan_speed)
 
     def event_happened(self, message):
         """

@@ -1,10 +1,17 @@
 # HassAppdeamonFan
 
-Home Assistant code to schedule lights with override function in Appdeamon integration (Python) based on switching Shelly relays. It depends on the MQTT integration in Hass for setting some override topics. 
+## fan_shellies
+
+Home Assistant code to schedule fan with override function in Appdeamon integration (Python) based on switching Shelly relays. It depends on the MQTT integration in Hass for setting some override topics. 
+
+## fan_svenar
+
+Home Assistant code to schedule fan with override function in Appdeamon integration (Python) based on Svenars ESPHome integration 'ESPcomfoair' (https://github.com/Mosibi/whr_930). It depends on the MQTT integration in Hass for setting some override topics. 
+
+
+## automations
 
 Overrides can be arranged using a 'with' or 'without' MQTT topic. This discerns situations where a command may already have gone to the shellies and this code only needs to account for managing override settings. Using the 'with' command it will in addition also send the associated command to the shellies (thus assuming this isn't already done)
-
-
 
 # Installation
 

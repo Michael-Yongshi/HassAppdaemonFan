@@ -1,6 +1,5 @@
 #################################################################
 ## Capture Button click events
-## In case http requests from shelly buttons fail but HASS did pick up the click event
 #################################################################
 
 ## Bathroom button
@@ -14,8 +13,13 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_1
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: low
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
+
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -35,8 +39,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_2
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: medium
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -56,8 +64,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_3
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: high
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -77,8 +89,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_0
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: 'off'
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -101,8 +117,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_1
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: low
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -122,8 +142,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_2
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: medium
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -143,8 +167,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_3
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: high
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
@@ -164,8 +192,12 @@
       subtype: button
   condition: []
   action:
-    - service: script.fan_speed_0
-      data: {}
+    - service: climate.set_fan_mode
+      metadata: {}
+      data:
+        fan_mode: 'off'
+      target:
+        device_id: 70454b8c0c001fb55422bc2668c93c0b
     - service: mqtt.publish
       data:
         topic: fan/override/without
