@@ -1,7 +1,8 @@
 watch_fan_svenar:
   module: watch_fan_svenar
   class: WatchFan
-  comfoair: climate.comfoair
+  climate_comfoair: climate.comfoair
+  sensor_status: sensor.comfoair_ventilation_level
   sensor_override_with: sensor.mqtt_fan_override_with
   sensor_override_without: sensor.mqtt_fan_override_without
   topic_override_with: fan/override/with

@@ -17,7 +17,8 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
     def initialize(self):
 
         # Fan climate Entity
-        self.climate_entity = self.args["comfoair"]
+        self.climate_entity = self.args["climate_comfoair"]
+        self.sensor_status = self.args["sensor_status"]
 
         ###### User program
 
@@ -318,43 +319,13 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
     def get_fan_speed(self):
         """
         Check the current status of the ventilation speeds and returns result
-
-        Checks the channels on the shellies to see which setting is currently active
-
-        All channels off means fan off
-        Only channel 1 means setting 1
-        Channel 1 and 2 means setting 2
-        Channel 1(, 2) and 3 means setting 3
         """
 
         # get hass sensor data
 
-        fan_speed_3 = self.get_state(self.fan_channel_3)
-
-        try:
-
-            if fan_speed_1 == 'on' and fan_speed_3 == 'on':
-                #[1,x,1]
-                speed = 3
-
-            elif fan_speed_1 == 'on' and fan_speed_2 == 'on':
-                #[1,1,x]
-                speed = 2
-
-            elif fan_speed_1 == 'on':
-                #[1,x,x]
-                speed = 1
-
-            else:
-                #[x,x,x]
-                speed = 0
-            # logging.info(f"Read speed {speed}")
-
-            return speed
+        speed = self.get_state(self.sensor_status)
         
-        except:
-
-            return -1
+        return speed
 
     def post_fan_speed(self, speed):
 
