@@ -172,7 +172,7 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
             return
 
         # get fanspeed state
-        current_speed = self.get_fan_speed()
+        current_speed = str(self.get_fan_speed())
         # self.log(f"Fan speed is {current_speed}")
 
         current_time = datetime.datetime.now()
@@ -190,15 +190,13 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
             # make sure override status is on auto
             self.mqtt_publish(topic = self.topic_override_status, payload = "Automatic programming", qos = 1)
 
-
-
         # reload user determined program
         self.current_program = self.set_program()
 
         # get current and target values
         current_timeslot = self.get_current_timeslot(current_time)
         current_timeslot_end = current_timeslot["end"]
-        program_target = current_timeslot["speed"]
+        program_target = str(current_timeslot["speed"])
         # self.log(f"Programming target speed is {program_target}, while current target speed is {current_speed}")
 
         # check if we already programmed this timeslot before (we will only once, so user can still change it)
@@ -214,7 +212,6 @@ class WatchFan(mqtt.Mqtt, hass.Hass):
             self.event_happened(f"Set new fan speed to {program_target}, according to the program")
 
         else:
-            # self.event_happened(f"Target fan speed is already set correctly to {program_target}")
             pass
 
     def get_current_timeslot(self, current_time):
